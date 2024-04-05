@@ -64,7 +64,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("1_jjg41")
 theme_override_font_sizes/font_size = 32
-text = "OPÇÕES"
+text = "OPTIONS"
 
 [node name="OptionsContainer" type="VBoxContainer" parent="."]
 visible = false
@@ -74,15 +74,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -409.0
-offset_top = -19.0
+offset_top = -182.0
 offset_right = 409.0
-offset_bottom = 20.0
+offset_bottom = 183.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="OptionsContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 20
 alignment = 1
 
@@ -108,7 +109,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("1_jjg41")
 theme_override_font_sizes/font_size = 32
-text = "VOLTAR"
+text = "BACK"
 
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
 [connection signal="pressed" from="MenuContainer/ButtonsContainer/StartButton" to="." method="_on_start_button_pressed"]
