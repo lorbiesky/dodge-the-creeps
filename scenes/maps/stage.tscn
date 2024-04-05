@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://dmpre6hcj1x0o"]
+
+[ext_resource type="Script" path="res://scenes/maps/stage.gd" id="1_k0d3d"]
+[ext_resource type="PackedScene" uid="uid://6t1wb567hiwp" path="res://scenes/characters/enemy/mob.tscn" id="2_034jo"]
+[ext_resource type="PackedScene" uid="uid://djeuyh3tuuwqs" path="res://scenes/characters/player/player.tscn" id="3_8l2ae"]
+[ext_resource type="PackedScene" uid="uid://c0gvq44jb67vr" path="res://scenes/menu/HUD.tscn" id="4_2x5vr"]
+[ext_resource type="AudioStream" uid="uid://b7xkyd04qyuoe" path="res://assets/musics/5 - Stellar Drift  (Loop).ogg" id="5_aedrw"]
+[ext_resource type="AudioStream" uid="uid://rw3ks46a1amh" path="res://assets/musics/gameover.wav" id="6_w0nip"]
+
+[sub_resource type="Curve2D" id="Curve2D_faf8c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1200, 0, 0, 0, 0, 0, 1200, 720, 0, 0, 0, 0, 0, 720, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="Stage" type="Node2D"]
+script = ExtResource("1_k0d3d")
+mob_scene = ExtResource("2_034jo")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1200.0
+offset_bottom = 720.0
+color = Color(0.156863, 0.164706, 0.211765, 1)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(600, 384)
+
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_faf8c")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+
+[node name="Player" parent="." instance=ExtResource("3_8l2ae")]
+
+[node name="HUD" parent="." instance=ExtResource("4_2x5vr")]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="." groups=["sounds"]]
+stream = ExtResource("5_aedrw")
+
+[node name="DeadSound" type="AudioStreamPlayer2D" parent="." groups=["sounds"]]
+stream = ExtResource("6_w0nip")
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="change_volume" from="HUD" to="." method="_on_update_volume"]
+[connection signal="start_game" from="HUD" to="." method="new_game"]

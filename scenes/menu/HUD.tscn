@@ -1,0 +1,117 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0gvq44jb67vr"]
+
+[ext_resource type="Script" path="res://scenes/menu/HUD.gd" id="1_eq6a3"]
+[ext_resource type="FontFile" uid="uid://deo1ikdr8tkoe" path="res://assets/fonts/Xolonium-Regular.ttf" id="1_jjg41"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_eq6a3")
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.5
+offset_right = 22.5
+offset_bottom = 78.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_jjg41")
+theme_override_font_sizes/font_size = 64
+text = "0"
+
+[node name="MessageTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MenuContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(580, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -172.0
+offset_right = 600.0
+offset_bottom = 361.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Message" type="Label" parent="MenuContainer"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_jjg41")
+theme_override_font_sizes/font_size = 64
+text = "Dodge the creeps!"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="MenuContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StartButton" type="Button" parent="MenuContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(430, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_jjg41")
+theme_override_font_sizes/font_size = 32
+text = "START"
+
+[node name="OptionsButton" type="Button" parent="MenuContainer/ButtonsContainer"]
+custom_minimum_size = Vector2(430, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_jjg41")
+theme_override_font_sizes/font_size = 32
+text = "OPÇÕES"
+
+[node name="OptionsContainer" type="VBoxContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -409.0
+offset_top = -19.0
+offset_right = 409.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="OptionsContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_jjg41")
+theme_override_font_sizes/font_size = 32
+text = "VOLUME:"
+
+[node name="VolumeSlider" type="HSlider" parent="OptionsContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="GobackButton" type="Button" parent="OptionsContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_jjg41")
+theme_override_font_sizes/font_size = 32
+text = "VOLTAR"
+
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
+[connection signal="pressed" from="MenuContainer/ButtonsContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MenuContainer/ButtonsContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="value_changed" from="OptionsContainer/HBoxContainer/VolumeSlider" to="." method="_on_volume_changed"]
+[connection signal="pressed" from="OptionsContainer/GobackButton" to="." method="_on_goback_button_pressed"]
