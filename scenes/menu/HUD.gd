@@ -14,8 +14,8 @@ func set_volume(percent):
 	_on_volume_changed(percent)
 	
 func show_message(text):
+	message.show()
 	message.text = text
-	message.show
 	message_timer.start()
 
 func show_game_over():
